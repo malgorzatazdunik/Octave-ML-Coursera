@@ -18,13 +18,12 @@ for iter = 1:num_iters
     %
 
 
-
-
-
-
-
-
-
+    S = 0;
+    oldTheta = theta;
+    for i = 1:m
+      S += (h(theta,X,i) - y(i,:))*X(i,:)';
+    endfor
+    theta = oldTheta - (alpha/m)*S;
 
 
     % ============================================================
@@ -33,5 +32,9 @@ for iter = 1:num_iters
     J_history(iter) = computeCostMulti(X, y, theta);
 
 end
+
+    function hyp = h(theta, X, i)
+    hyp = theta'*X(i,:)';
+    endfunction
 
 end

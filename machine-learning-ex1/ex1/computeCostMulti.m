@@ -14,7 +14,18 @@ J = 0;
 %               You should set J to the cost.
 
 
+S = 0;
+for i = 1:m
+  S += (h(theta,X,i) - y(i,:)).^2;
+endfor
 
+J = S/(2*m);
+
+
+  function hyp = h(theta, X, i)
+    #hyp = theta(1,:) + theta(2,:) * X(i,:);
+    hyp = theta'*X(i,:)';
+  endfunction
 
 
 % =========================================================================
