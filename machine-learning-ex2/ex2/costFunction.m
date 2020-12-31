@@ -32,8 +32,8 @@ g = 0;
   endfor
 
 
-J = S/m
-grad = g/m
+J = S/m;
+grad = g/m;
 
 
   function h = sigmoid(X, theta, i)

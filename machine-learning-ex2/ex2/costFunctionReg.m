@@ -33,7 +33,7 @@ g = 0;
   
   thetaS = 0;
   for (j = 2:size(theta,1))
-    thetaS += theta(j,:).^2 
+    thetaS += theta(j,:).^2 ;
   endfor
   
 J = S/m + (lambda*thetaS)/(2*m);
