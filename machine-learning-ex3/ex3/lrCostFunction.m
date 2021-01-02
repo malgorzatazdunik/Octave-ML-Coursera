@@ -38,16 +38,16 @@ grad = zeros(size(theta));
 
 z = X * theta;
 
-h = sigmoid(z)
+h = sigmoid(z);
 
-J = mean((-y .* log(h)) - ((1-y) .* log(1-h)))
+J = mean((-y .* log(h)) - ((1-y) .* log(1-h)));
 
 J += (lambda/(2*m)) * sum(theta(2:end).^2);
 
 grad = (1/m)*(X' * (h-y));
 temp = theta;
 temp(1) = 0;
-grad += (lambda/m)*temp
+grad += (lambda/m)*temp;
 
 % =============================================================
 
