@@ -63,22 +63,59 @@ Theta2_grad = zeros(size(Theta2));
 %
 
 
+y_matrix = eye(num_labels)(:,y);
 
 
 
+a1 = [ones(m, 1) X];
+    
+z2 = Theta1 * a1';
+a2 = sigmoid(z2);
+
+a2 = [ones(1, m); a2];
+
+z3 = Theta2 * a2;
+
+h = sigmoid(z3);
+
+size(h);
 
 
+J = sum(sum(-y_matrix .* log(h) - (1-y_matrix) .* log(1-h)))/m;
 
 
+% REGULARIZED TERM %
 
 
+reg = (lambda/(2*m)) * ( sum(sum( Theta1(:,2:end).^2 )) + sum(sum( Theta2(:,2:end).^2 )) );
+J += reg;
+
+% Back propagation %
+
+delta1 = zeros(size(Theta1));
+delta2 = zeros(size(Theta2));
 
 
+for (i=1:m)
+  
+  delta3= h(:,i) - y_matrix(:,i);
+  delta2 = (Theta2' * delta3)(2:end,:) .* sigmoidGradient(z2(:,i));
+  Theta2_grad += delta3 * a2(:,i)';
+  Theta1_grad += delta2 * a1(i,:);
+endfor
 
+Theta1_grad = Theta1_grad/m;
+Theta2_grad =Theta2_grad/m;
 
+% grad reg %
+temp1 = Theta1;
+temp2 = Theta2;
+temp1(:,1) = 0;
+temp2(:,1) = 0;
 
-
-
+#grad += (lambda/m)*temp;
+Theta1_grad += (lambda/m)*temp1;
+Theta2_grad += (lambda/m)*temp2;
 
 % -------------------------------------------------------------
 
@@ -86,6 +123,7 @@ Theta2_grad = zeros(size(Theta2));
 
 % Unroll gradients
 grad = [Theta1_grad(:) ; Theta2_grad(:)];
+A = size(grad);
 
 
 end
