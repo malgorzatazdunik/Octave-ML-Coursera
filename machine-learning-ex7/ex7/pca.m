@@ -20,7 +20,11 @@ S = zeros(n);
 %       number of examples).
 %
 
+C = 1/m * X' * X;
 
+#size(C)
+
+[U, S, V] = svd(C);
 
 
 
